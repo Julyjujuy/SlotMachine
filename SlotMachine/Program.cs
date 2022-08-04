@@ -17,13 +17,11 @@ namespace SlotMachine
         {
             var number = randomSeed.Next(min, max);
             return number;
-
         }
         static string RandomSymbol(Random randomSeed)
         {
             string[] symbols = { "   Dice   ", "Watermelon", "  Heart   ", "    7     ", "  Rocket  ", "  Cherry  ", "  Banana  ", "  Ananas  ", "   Coin   " };
             int randomnumber = Generatenumber(0, 8, randomSeed);
-
             return symbols[randomnumber];
         }
         static void PrintGrid(string[][] grid2Print)
@@ -36,7 +34,6 @@ namespace SlotMachine
                     Console.Write(" ");
                 }
                 Console.WriteLine();
-
             }
         }
         static int CheckLine(string first, string second, string third)
@@ -64,7 +61,6 @@ namespace SlotMachine
             horizontalWins += CheckLine(gridToCheck[0][0], gridToCheck[0][1], gridToCheck[0][2]);
             horizontalWins += CheckLine(gridToCheck[1][0], gridToCheck[1][1], gridToCheck[1][2]);
             horizontalWins += CheckLine(gridToCheck[2][0], gridToCheck[2][1], gridToCheck[2][2]);
-
             return horizontalWins;
         }
         static int CheckVerticalandDiagonal(string[][] gridToCheck)
@@ -75,18 +71,14 @@ namespace SlotMachine
             verticalWins += CheckLine(gridToCheck[0][2], gridToCheck[1][2], gridToCheck[2][2]);
             verticalWins += CheckLine(gridToCheck[0][0], gridToCheck[1][1], gridToCheck[2][2]);
             verticalWins += CheckLine(gridToCheck[0][2], gridToCheck[1][1], gridToCheck[2][0]);
-
-
             return verticalWins;
         }
-
         static int getBet(int moneyInTheBank)
         {
             bool invalid = true;
             int bet = 0;
             while (invalid)
             {
-
                 if (int.TryParse(Console.ReadLine(), out bet))
                 {
                     bet = Math.Abs(bet);
@@ -107,7 +99,6 @@ namespace SlotMachine
             }
             return bet;
         }
-
         static void Main(string[] args)
         {
             int userBank = 100;
@@ -117,10 +108,8 @@ namespace SlotMachine
 
             Console.WriteLine("Hello, Welcome to my Slot Machine. You start with {0} Credits!", userBank);
             bool wannaPlay = true;
-
             while (wannaPlay)
             {
-
                 Console.WriteLine("How much do you want to bet on the central Line?");
                 int centralBet = getBet(userBank);
                 userBank -= centralBet;
@@ -134,12 +123,6 @@ namespace SlotMachine
                 userBank -= verticalBet;
                 Console.WriteLine("You have now {0} Credits!", userBank);
 
-
-
-
-
-
-
                 var rand = new Random();
 
                 string[][] grid = new string[3][] { new string[3], new string[3], new string[3] };
@@ -152,24 +135,14 @@ namespace SlotMachine
                 }
                 PrintGrid(grid);
 
-
-
                 int wins = 0;
-
                 wins += CheckCentral(grid) * centralMultiplier * centralBet;
                 wins += CheckHorizontal(grid) * horizontalMultiplier * horizontalBet;
                 wins += CheckVerticalandDiagonal(grid) * verticalMultiplier * verticalBet;
 
-
-
-
-
-
                 Console.WriteLine("You won {0} credits", wins);
                 userBank += wins;
                 Console.WriteLine("You have now {0} Credits!", userBank);
-
-
 
                 Console.WriteLine("Wanna play another round? Type 'no' to exit. Type anything else to continue.");
                 string wannaExit = Console.ReadLine().ToLower();
@@ -178,21 +151,7 @@ namespace SlotMachine
                     wannaPlay = false;
                 }
 
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
         }
     }
-
 }
