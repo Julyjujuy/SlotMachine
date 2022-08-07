@@ -7,6 +7,6 @@
 I've build it to learn how to code.
 
 Thanks to [Rakete Mentoring Group](https://raketementoring.com/) to bring me near this project.
-> "In order to learn a new skill, you just have to go for it!"
+> "The slot machines sit there like young courtesans, promising pleasures undreamed of, your deepest desires fulfilled, all lusts satiated."
 
 This program was built using [Visual Studio 2022](https://visualstudio.microsoft.com/).
