@@ -13,15 +13,15 @@ namespace SlotMachine
     internal class Program
     {
 
-        static int Generatenumber(int min, int max, Random randomSeed)
+        static int Generatenumber(int min, int max, Random random_Point)
         {
-            var number = randomSeed.Next(min, max);
+            var number = random_Point.Next(min, max);
             return number;
         }
-        static string RandomSymbol(Random randomSeed)
+        static string RandomSymbol(Random random_Point)
         {
             string[] symbols = { "   Dice   ", "Watermelon", "  Heart   ", "    7     ", "  Rocket  ", "  Cherry  ", "  Banana  ", "  Ananas  ", "   Coin   " };
-            int randomnumber = Generatenumber(0, 8, randomSeed);
+            int randomnumber = Generatenumber(0, 8, random_Point);
             return symbols[randomnumber];
         }
         static void PrintGrid(string[][] grid2Print)
