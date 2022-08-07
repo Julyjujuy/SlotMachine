@@ -73,7 +73,7 @@ namespace SlotMachine
             verticalWins += CheckLine(gridToCheck[0][2], gridToCheck[1][1], gridToCheck[2][0]);
             return verticalWins;
         }
-        static int getBet(int moneyInTheBank)
+        static int GetBet(int moneyInTheBank)
         {
             bool invalid = true;
             int bet = 0;
@@ -99,29 +99,30 @@ namespace SlotMachine
             }
             return bet;
         }
+
         static void Main(string[] args)
         {
             int userBank = 100;
-            const int centralMultiplier = 5;
-            const int horizontalMultiplier = 2;
-            const int verticalMultiplier = 1;
+            const int CENTRAL_MULTIPLIER = 5;
+            const int HORIZONTAL_MULTIPLIER = 2;
+            const int VERTICAL_MULTIPLIER = 1;
 
-            Console.WriteLine("Hello, Welcome to my Slot Machine. You start with {0} Credits!", userBank);
+            Console.WriteLine($"Hello, Welcome to my Slot Machine. You start with {userBank} Credits!");
             bool wannaPlay = true;
             while (wannaPlay)
             {
                 Console.WriteLine("How much do you want to bet on the central Line?");
-                int centralBet = getBet(userBank);
+                int centralBet = GetBet(userBank);
                 userBank -= centralBet;
-                Console.WriteLine("You have now {0} Credits!", userBank);
+                Console.WriteLine($"You have now {userBank} Credits!");
                 Console.WriteLine("How much do you want to bet on the horizontal Lines?");
-                int horizontalBet = getBet(userBank);
+                int horizontalBet = GetBet(userBank);
                 userBank -= horizontalBet;
-                Console.WriteLine("You have now {0} Credits!", userBank);
+                Console.WriteLine($"You have now {userBank} Credits!");
                 Console.WriteLine("How much do you want to bet on the Vertical and Diagonal Lines?");
-                int verticalBet = getBet(userBank);
+                int verticalBet = GetBet(userBank);
                 userBank -= verticalBet;
-                Console.WriteLine("You have now {0} Credits!", userBank);
+                Console.WriteLine($"You have now {userBank} Credits!");
 
                 var rand = new Random();
 
@@ -136,9 +137,9 @@ namespace SlotMachine
                 PrintGrid(grid);
 
                 int wins = 0;
-                wins += CheckCentral(grid) * centralMultiplier * centralBet;
-                wins += CheckHorizontal(grid) * horizontalMultiplier * horizontalBet;
-                wins += CheckVerticalandDiagonal(grid) * verticalMultiplier * verticalBet;
+                wins += CheckCentral(grid) * CENTRAL_MULTIPLIER * centralBet;
+                wins += CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
+                wins += CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
 
                 Console.WriteLine("You won {0} credits", wins);
                 userBank += wins;
