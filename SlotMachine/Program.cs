@@ -1,29 +1,46 @@
-﻿using Google.Apis.Admin.Directory.directory_v1.Data;
-using Microsoft.SharePoint.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
+using System.Net;
+
 
 
 namespace SlotMachine
 {
-
     internal class Program
     {
-
-        static int Generatenumber(int min, int max, Random random_Point)
+        /// <summary>
+        /// Pick a random number from a list of random generated numbers
+        /// </summary>
+        /// <param name="min">set minimum parameter</param>
+        /// <param name="max">set maximum parameter</param>
+        /// <param name="rng">generated random number</param>
+        /// <returns>a random generated number</returns>
+        static int Generatenumber(int min, int max, Random rng)
         {
-            var number = random_Point.Next(min, max);
+            var number = rng.Next(min, max);
             return number;
         }
+        /// <summary>
+        /// Pick a random symbol from a list 
+        /// </summary>
+        /// <param name="random_Point">generated random number for the pick</param>
+        /// <returns>a symbol randomly picked</returns>
         static string RandomSymbol(Random random_Point)
         {
             string[] symbols = { "   Dice   ", "Watermelon", "  Heart   ", "    7     ", "  Rocket  ", "  Cherry  ", "  Banana  ", "  Ananas  ", "   Coin   " };
-            int randomnumber = Generatenumber(0, 8, random_Point);
+            int randomnumber = Generatenumber(0, symbols.Length, random_Point);
             return symbols[randomnumber];
         }
+        /// <summary>
+        /// prints the grid of jagged arrays string
+        /// </summary>
+        /// <param name="grid2Print"></param>
         static void PrintGrid(string[][] grid2Print)
         {
             foreach (string[] row in grid2Print)
@@ -36,25 +53,41 @@ namespace SlotMachine
                 Console.WriteLine();
             }
         }
+        /// <summary>
+        /// it checks the matches in each line combination that it's given 
+        /// </summary>
+        /// <param name="first">first element of the line</param>
+        /// <param name="second">second element of the line</param>
+        /// <param name="third">third element of the line</param>
+        /// <returns>points for matches checked</returns>
         static int CheckLine(string first, string second, string third)
         {
             if (first == second && second == third)
             {
                 return 2;
             }
-            else if (first == second || first == third || second == third)
+            if (first == second || first == third || second == third)
             {
                 return 1;
             }
-            else
-            {
-                return 0;
-            }
+
+            return 0;
+
         }
+        /// <summary>
+        /// it checks the matches for the central line using the checkline method
+        /// </summary>
+        /// <param name="gridToCheck"></param>
+        /// <returns></returns>
         static int CheckCentral(string[][] gridToCheck)
         {
             return CheckLine(gridToCheck[1][0], gridToCheck[1][1], gridToCheck[1][2]);
         }
+        /// <summary>
+        /// it checks the matches for the horizontal line using the checkline method
+        /// </summary>
+        /// <param name="gridToCheck"></param>
+        /// <returns></returns>
         static int CheckHorizontal(string[][] gridToCheck)
         {
             int horizontalWins = 0;
@@ -63,6 +96,11 @@ namespace SlotMachine
             horizontalWins += CheckLine(gridToCheck[2][0], gridToCheck[2][1], gridToCheck[2][2]);
             return horizontalWins;
         }
+        /// <summary>
+        /// it checks the matches for the vertical and diagonal lines using the checkline method
+        /// </summary>
+        /// <param name="gridToCheck"></param>
+        /// <returns></returns>
         static int CheckVerticalandDiagonal(string[][] gridToCheck)
         {
             int verticalWins = 0;
@@ -73,6 +111,11 @@ namespace SlotMachine
             verticalWins += CheckLine(gridToCheck[0][2], gridToCheck[1][1], gridToCheck[2][0]);
             return verticalWins;
         }
+        /// <summary>
+        /// take the bet of the user and checks it with the current credit
+        /// </summary>
+        /// <param name="moneyInTheBank">current credits parameter</param>
+        /// <returns>the amount of current credits after the bet</returns>
         static int GetBet(int moneyInTheBank)
         {
             bool invalid = true;
@@ -99,7 +142,6 @@ namespace SlotMachine
             }
             return bet;
         }
-
         static void Main(string[] args)
         {
             int userBank = 100;
@@ -111,7 +153,7 @@ namespace SlotMachine
             bool wannaPlay = true;
             while (wannaPlay)
             {
-                Console.WriteLine("How much do you want to bet on the central Line?");
+                Console.WriteLine($"How much do you want to bet on the central Line?");
                 int centralBet = GetBet(userBank);
                 userBank -= centralBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
@@ -124,7 +166,7 @@ namespace SlotMachine
                 userBank -= verticalBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
 
-                var rand = new Random();
+                Random rand = new Random();
 
                 string[][] grid = new string[3][] { new string[3], new string[3], new string[3] };
                 for (int i = 0; i < grid.Length; i++)
@@ -142,17 +184,21 @@ namespace SlotMachine
                 wins += CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
 
                 Console.WriteLine("You won {0} credits", wins);
+                Console.WriteLine($"You won {wins} credits");
                 userBank += wins;
                 Console.WriteLine("You have now {0} Credits!", userBank);
 
-                Console.WriteLine("Wanna play another round? Type 'no' to exit. Type anything else to continue.");
+                Console.WriteLine("Wanna play another round? Type 'n' to exit. Type anything else to continue.");
                 string wannaExit = Console.ReadLine().ToLower();
-                if (wannaExit == "no")
+                if (wannaExit == "n")
                 {
                     wannaPlay = false;
                 }
 
             }
+
+            
         }
     }
 }
+

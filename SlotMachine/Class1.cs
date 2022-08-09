@@ -8,5 +8,8 @@ namespace SlotMachine
 {
     internal class Class1
     {
+
+
+
     }
 }
