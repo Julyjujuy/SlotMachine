@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SlotMachine
 {
-    public static class UIMethods
+    public static class Methods
     {
 
         /// <summary>
@@ -16,7 +13,7 @@ namespace SlotMachine
         /// <param name="max">set maximum parameter</param>
         /// <param name="rng">generated random number</param>
         /// <returns>a random generated number</returns>
-        public static int Generatenumber(int min, int max, Random rng)
+        public static int GenerateNumber(int min, int max, Random rng)
         {
             var number = rng.Next(min, max);
             return number;
@@ -24,21 +21,21 @@ namespace SlotMachine
         /// <summary>
         /// Pick a random symbol from a list 
         /// </summary>
-        /// <param name="random_Point">generated random number for the pick</param>
+        /// <param name="random_Symb">generated random number used to pick a symbol</param>
         /// <returns>a symbol randomly picked</returns>
-        public static string RandomSymbol(Random random_Point)
+        public static string RandomSymbol(Random random_Symb)
         {
             string[] symbols = { "   Dice   ", "Watermelon", "  Heart   ", "    7     ", "  Rocket  ", "  Cherry  ", "  Banana  ", "  Ananas  ", "   Coin   " };
-            int randomnumber = Generatenumber(0, symbols.Length, random_Point);
+            int randomnumber = GenerateNumber(0, symbols.Length, random_Symb);
             return symbols[randomnumber];
         }
         /// <summary>
         /// prints the grid of jagged arrays string
         /// </summary>
-        /// <param name="grid2Print"></param>
-        public static void PrintGrid(string[][] grid2Print)
+        /// <param name="elements2Print"></param>
+        public static void PrintGrid(string[][] elements2Print)
         {
-            foreach (string[] row in grid2Print)
+            foreach (string[] row in elements2Print)
             {
                 foreach (string word in row)
                 {
@@ -131,7 +128,7 @@ namespace SlotMachine
                 }
                 else
                 {
-                    Console.WriteLine("You must imput a valid number please.");
+                    Console.WriteLine("Input.");
                 }
 
             }
@@ -139,6 +136,9 @@ namespace SlotMachine
         }
 
 
+
+    
+      
 
 
     }

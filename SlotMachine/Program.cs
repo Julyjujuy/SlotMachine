@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
-using System.Net;
+
 
 
 
@@ -27,15 +20,15 @@ namespace SlotMachine
             while (wannaPlay)
             {
                 Console.WriteLine($"How much do you want to bet on the central Line?");
-                int centralBet = UIMethods.GetBet(userBank);
+                int centralBet = Methods.GetBet(userBank);
                 userBank -= centralBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
                 Console.WriteLine("How much do you want to bet on the horizontal Lines?");
-                int horizontalBet = UIMethods.GetBet(userBank);
+                int horizontalBet = Methods.GetBet(userBank);
                 userBank -= horizontalBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
                 Console.WriteLine("How much do you want to bet on the Vertical and Diagonal Lines?");
-                int verticalBet = UIMethods.GetBet(userBank);
+                int verticalBet = Methods.GetBet(userBank);
                 userBank -= verticalBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
 
@@ -46,15 +39,15 @@ namespace SlotMachine
                 {
                     for (int j = 0; j < grid[i].Length; j++)
                     {
-                        grid[i][j] = UIMethods.RandomSymbol(rand);
+                        grid[i][j] = Methods.RandomSymbol(rand);
                     }
                 }
-                UIMethods.PrintGrid(grid);
+                Methods.PrintGrid(grid);
 
                 int wins = 0;
-                wins += UIMethods.CheckCentral(grid) * CENTRAL_MULTIPLIER * centralBet;
-                wins += UIMethods.CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
-                wins += UIMethods.CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
+                wins += Methods.CheckCentral(grid) * CENTRAL_MULTIPLIER * centralBet;
+                wins += Methods.CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
+                wins += Methods.CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
 
                 Console.WriteLine("You won {0} credits", wins);
                 Console.WriteLine($"You won {wins} credits");
