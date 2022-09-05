@@ -31,26 +31,22 @@ namespace SlotMachine
                 int verticalBet = Methods.GetBet(userBank);
                 userBank -= verticalBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
-
                 Random rand = new Random();
-
-                string[][] grid = new string[3][] { new string[3], new string[3], new string[3] };
-                for (int i = 0; i < grid.Length; i++)
+                string[,] grid = new string[3,3];
+                for (int i = 0; i < 3; i++)
                 {
-                    for (int j = 0; j < grid[i].Length; j++)
+                    for (int j = 0; j < 3; j++)
                     {
-                        grid[i][j] = Methods.RandomSymbol(rand);
+                        grid[i,j] = Methods.RandomSymbol(rand);
                     }
                 }
                 Methods.PrintGrid(grid);
-
                 int wins = 0;
                 wins += Methods.CheckCentral(grid) * CENTRAL_MULTIPLIER * centralBet;
                 wins += Methods.CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
                 wins += Methods.CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
 
                 Console.WriteLine("You won {0} credits", wins);
-                Console.WriteLine($"You won {wins} credits");
                 userBank += wins;
                 Console.WriteLine("You have now {0} Credits!", userBank);
 

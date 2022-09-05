@@ -33,18 +33,28 @@ namespace SlotMachine
         /// prints the grid of jagged arrays string
         /// </summary>
         /// <param name="elements2Print"></param>
-        public static void PrintGrid(string[][] elements2Print)
+        
+        public static void PrintGrid(string[,] elements2Print)
         {
-            foreach (string[] row in elements2Print)
+            for (int i = 0; i < 3; i++)
             {
-                foreach (string word in row)
+                for (int j = 0; j < 3; j++)
                 {
-                    Console.Write(word);
-                    Console.Write(" ");
+                    Console.Write(elements2Print[i,j]);
                 }
                 Console.WriteLine();
             }
+            //foreach (string[] row in elements2Print)
+            //{
+            //    foreach (string word in elements2Print)
+            //    {
+            //        Console.Write(word);
+            //        Console.Write(" ");
+            //    }
+            //    Console.WriteLine();
+            //}
         }
+
         /// <summary>
         /// it checks the matches in each line combination that it's given 
         /// </summary>
@@ -71,21 +81,21 @@ namespace SlotMachine
         /// </summary>
         /// <param name="gridToCheck"></param>
         /// <returns></returns>
-        public static int CheckCentral(string[][] gridToCheck)
+        public static int CheckCentral(string[,] gridToCheck)
         {
-            return CheckLine(gridToCheck[1][0], gridToCheck[1][1], gridToCheck[1][2]);
+            return CheckLine(gridToCheck[1,0], gridToCheck[1,1], gridToCheck[1,2]);
         }
         /// <summary>
         /// it checks the matches for the horizontal line using the checkline method
         /// </summary>
         /// <param name="gridToCheck"></param>
         /// <returns></returns>
-        public static int CheckHorizontal(string[][] gridToCheck)
+        public static int CheckHorizontal(string[,] gridToCheck)
         {
             int horizontalWins = 0;
-            horizontalWins += CheckLine(gridToCheck[0][0], gridToCheck[0][1], gridToCheck[0][2]);
-            horizontalWins += CheckLine(gridToCheck[1][0], gridToCheck[1][1], gridToCheck[1][2]);
-            horizontalWins += CheckLine(gridToCheck[2][0], gridToCheck[2][1], gridToCheck[2][2]);
+            horizontalWins += CheckLine(gridToCheck[0,0], gridToCheck[0,1], gridToCheck[0,2]);
+            horizontalWins += CheckLine(gridToCheck[1,0], gridToCheck[1,1], gridToCheck[1,2]);
+            horizontalWins += CheckLine(gridToCheck[2,0], gridToCheck[2,1], gridToCheck[2,2]);
             return horizontalWins;
         }
         /// <summary>
@@ -93,14 +103,14 @@ namespace SlotMachine
         /// </summary>
         /// <param name="gridToCheck"></param>
         /// <returns></returns>
-        public static int CheckVerticalandDiagonal(string[][] gridToCheck)
+        public static int CheckVerticalandDiagonal(string[,] gridToCheck)
         {
             int verticalWins = 0;
-            verticalWins += CheckLine(gridToCheck[0][0], gridToCheck[1][0], gridToCheck[2][0]);
-            verticalWins += CheckLine(gridToCheck[0][1], gridToCheck[1][1], gridToCheck[2][1]);
-            verticalWins += CheckLine(gridToCheck[0][2], gridToCheck[1][2], gridToCheck[2][2]);
-            verticalWins += CheckLine(gridToCheck[0][0], gridToCheck[1][1], gridToCheck[2][2]);
-            verticalWins += CheckLine(gridToCheck[0][2], gridToCheck[1][1], gridToCheck[2][0]);
+            verticalWins += CheckLine(gridToCheck[0,0], gridToCheck[1,0], gridToCheck[2,0]);
+            verticalWins += CheckLine(gridToCheck[0,1], gridToCheck[1,1], gridToCheck[2,1]);
+            verticalWins += CheckLine(gridToCheck[0,2], gridToCheck[1,2], gridToCheck[2,2]);
+            verticalWins += CheckLine(gridToCheck[0,0], gridToCheck[1,1], gridToCheck[2,2]);
+            verticalWins += CheckLine(gridToCheck[0,2], gridToCheck[1,1], gridToCheck[2,0]);
             return verticalWins;
         }
         /// <summary>
