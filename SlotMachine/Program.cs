@@ -19,15 +19,19 @@ namespace SlotMachine
             bool wannaPlay = true;
             while (wannaPlay)
             {
-                Console.WriteLine($"How much do you want to bet on the central Line?");
+              
+                int userCentralBet = 0;
+                int userHorizontalBet = 0;
+                int userVerticalDiagonalBet = 0;
+                UIMethods.AskCentralBet(userCentralBet);
                 int centralBet = Methods.GetBet(userBank);
                 userBank -= centralBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
-                Console.WriteLine("How much do you want to bet on the horizontal Lines?");
+                UIMethods.AskHorizontalBet(userHorizontalBet);
                 int horizontalBet = Methods.GetBet(userBank);
                 userBank -= horizontalBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
-                Console.WriteLine("How much do you want to bet on the Vertical and Diagonal Lines?");
+                UIMethods.AskVerticalDiagonalBet(userVerticalDiagonalBet);
                 int verticalBet = Methods.GetBet(userBank);
                 userBank -= verticalBet;
                 Console.WriteLine($"You have now {userBank} Credits!");
