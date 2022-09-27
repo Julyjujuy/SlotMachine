@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.SharePoint.Tools;
+using System;
 
 
 
@@ -15,7 +16,7 @@ namespace SlotMachine
             const int HORIZONTAL_MULTIPLIER = 2;
             const int VERTICAL_MULTIPLIER = 1;
 
-            Console.WriteLine($"Hello, Welcome to my Slot Machine. You start with {userBank} Credits!");
+            UIMethods.InitiateSession(userBank);
             bool wannaPlay = true;
             while (wannaPlay)
             {
@@ -26,15 +27,14 @@ namespace SlotMachine
                 UIMethods.AskCentralBet(userCentralBet);
                 int centralBet = Methods.GetBet(userBank);
                 userBank -= centralBet;
-                Console.WriteLine($"You have now {userBank} Credits!");
-                UIMethods.AskHorizontalBet(userHorizontalBet);
-                int horizontalBet = Methods.GetBet(userBank);
+                UIMethods.TellUserAccount(userBank);
+                int horizontalBet = UIMethods.AskHorizontalBet(userBank);
                 userBank -= horizontalBet;
-                Console.WriteLine($"You have now {userBank} Credits!");
+                UIMethods.TellUserAccount(userBank);
                 UIMethods.AskVerticalDiagonalBet(userVerticalDiagonalBet);
                 int verticalBet = Methods.GetBet(userBank);
                 userBank -= verticalBet;
-                Console.WriteLine($"You have now {userBank} Credits!");
+                UIMethods.TellUserAccount(userBank);
                 Random rand = new Random();
                 string[,] grid = new string[3,3];
                 for (int i = 0; i < 3; i++)
@@ -50,10 +50,11 @@ namespace SlotMachine
                 wins += Methods.CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
                 wins += Methods.CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
 
-                Console.WriteLine("You won {0} credits", wins);
+                UIMethods.TellWins(wins);
                 userBank += wins;
-                Console.WriteLine("You have now {0} Credits!", userBank);
+                UIMethods.TellUserAccount(userBank);
 
+                
                 Console.WriteLine("Wanna play another round? Type 'n' to exit. Type anything else to continue.");
                 string wannaExit = Console.ReadLine().ToLower();
                 if (wannaExit == "n")
