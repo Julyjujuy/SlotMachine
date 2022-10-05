@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SlotMachine
 {
     internal class UIMethods
     {
-        public static void InitiateSession(int userBank)
+        public static void StartSession(int userBank)
         {
             Console.WriteLine($"Hello, Welcome to my Slot Machine. You start with {userBank} Credits!");
         }
@@ -21,7 +16,7 @@ namespace SlotMachine
         public static int AskHorizontalBet(int userHorizontalBet)
         {
             Console.WriteLine("How much do you want to bet on the horizontal Lines?");
-            return Methods.GetBet(userHorizontalBet);
+            return (userHorizontalBet);
         }
         public static int AskVerticalDiagonalBet(int userVerticalDiagonalBet)
         {
@@ -36,10 +31,11 @@ namespace SlotMachine
         {
             Console.WriteLine("You won {0} credits", wins);
         }
-        public static string AskAnotherRound(string question)
+        public static void AskAnotherRound()
         {
-            Console.WriteLine("Wanna play another round? Type 'n' to exit. Type anything else to continue.");
-            return question;
+            Console.WriteLine("Do you want to continue? Type 'y', otherwise type 'n'");
+            Console.ReadLine().ToLower();
+         
         }
     }
 }
