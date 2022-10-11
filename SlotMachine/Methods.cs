@@ -30,30 +30,11 @@ namespace SlotMachine
             return symbols[randomnumber];
         }
         /// <summary>
-        /// prints the grid of jagged arrays string
+        /// prints the grid of arrays string
         /// </summary>
         /// <param name="elements2Print"></param>
         
-        public static void PrintGrid(string[,] elements2Print)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    Console.Write(elements2Print[i,j]);
-                }
-                Console.WriteLine();
-            }
-            //foreach (string[] row in elements2Print)
-            //{
-            //    foreach (string word in elements2Print)
-            //    {
-            //        Console.Write(word);
-            //        Console.Write(" ");
-            //    }
-            //    Console.WriteLine();
-            //}
-        }
+        
 
         /// <summary>
         /// it checks the matches in each line combination that it's given 
@@ -113,37 +94,7 @@ namespace SlotMachine
             verticalWins += CheckLine(gridToCheck[0,2], gridToCheck[1,1], gridToCheck[2,0]);
             return verticalWins;
         }
-        /// <summary>
-        /// take the bet of the user and checks it with the current credit
-        /// </summary>
-        /// <param name="moneyInTheBank">current credit parameter</param>
-        /// <returns>the amount of current credits after the bet</returns>
-        public static int GetBet(int moneyInTheBank)
-        {
-            bool invalid = true;
-            int bet = 0;
-            while (invalid)
-            {
-                if (int.TryParse(Console.ReadLine(), out bet))
-                {
-                    bet = Math.Abs(bet);
-                    if (moneyInTheBank >= bet)
-                    {
-                        invalid = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry, you don't have that much credits!");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Input.");
-                }
-
-            }
-            return bet;
-        }
+       
 
 
 

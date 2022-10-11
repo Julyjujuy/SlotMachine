@@ -23,15 +23,15 @@ namespace SlotMachine
                 int userHorizontalBet = 0;
                 int userVerticalDiagonalBet = 0;
                 UIMethods.AskCentralBet(userCentralBet);
-                int centralBet = Methods.GetBet(userBank);
+                int centralBet = UIMethods.GetBet(userBank);
                 userBank -= centralBet;
                 UIMethods.TellUserAccount(userBank);
-                UIMethods.AskHorizontalBet(userBank);
-                int horizontalBet = Methods.GetBet(userBank);
+                UIMethods.AskHorizontalBet(userHorizontalBet);
+                int horizontalBet = UIMethods.GetBet(userBank);
                 userBank -= horizontalBet;
                 UIMethods.TellUserAccount(userBank);
                 UIMethods.AskVerticalDiagonalBet(userVerticalDiagonalBet);
-                int verticalBet = Methods.GetBet(userBank);
+                int verticalBet = UIMethods.GetBet(userBank);
                 userBank -= verticalBet;
                 UIMethods.TellUserAccount(userBank);
                 Random rand = new Random();
@@ -43,7 +43,7 @@ namespace SlotMachine
                         grid[i,j] = Methods.RandomSymbol(rand);
                     }
                 }
-                Methods.PrintGrid(grid);
+                UIMethods.PrintGrid(grid);
                 int wins = 0;
                 wins += Methods.CheckCentral(grid) * CENTRAL_MULTIPLIER * centralBet;
                 wins += Methods.CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
@@ -58,6 +58,7 @@ namespace SlotMachine
                 {
                    break;
                 }
+
             }
         }
     }
