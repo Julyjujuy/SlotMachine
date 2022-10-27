@@ -1,14 +1,12 @@
 ﻿using Microsoft.Office.SharePoint.Tools;
 using System;
-
-
-
+using System.Security.Cryptography.X509Certificates;
 
 namespace SlotMachine
 {
     internal class Program
     {
-        
+       
         static void Main(string[] args)
         {
             int userBank = 100;
@@ -34,26 +32,16 @@ namespace SlotMachine
                 int verticalBet = UIMethods.GetBet(userBank);
                 userBank -= verticalBet;
                 UIMethods.TellUserAccount(userBank);
-                Random rand = new Random();
-                string[,] grid = new string[3,3];
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        grid[i,j] = Methods.RandomSymbol(rand);
-                    }
-                }
+                string[,] grid = UIMethods.RandomGrid(3, 3);
                 UIMethods.PrintGrid(grid);
-                int wins = 0;
+                int wins = UIMethods.CheckAllWins(grid, centralBet, horizontalBet, verticalBet);
                 wins += Methods.CheckCentral(grid) * CENTRAL_MULTIPLIER * centralBet;
                 wins += Methods.CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
                 wins += Methods.CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
                 UIMethods.TellWins(wins);
                 userBank += wins;
                 UIMethods.TellUserAccount(userBank);
-
-                UIMethods.AskAnotherRound();
-                string wannaExit = Console.ReadLine().ToLower();
+                string wannaExit = UIMethods.AskAnotherRound();
                 if (wannaExit == "n")
                 {
                    break;

@@ -94,13 +94,6 @@ namespace SlotMachine
             verticalWins += CheckLine(gridToCheck[0,2], gridToCheck[1,1], gridToCheck[2,0]);
             return verticalWins;
         }
-       
-
-
-
-    
-      
-
 
     }
 }

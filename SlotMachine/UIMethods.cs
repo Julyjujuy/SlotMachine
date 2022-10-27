@@ -29,12 +29,16 @@ namespace SlotMachine
         }
         public static void TellWins(int wins)
         {
-            Console.WriteLine("You won {0} credits", wins);
+            Console.WriteLine($"You won {wins} credits");
         }
-        public static void AskAnotherRound()
+        public static string AskAnotherRound()
         {
             Console.WriteLine("Do you want to continue? Type 'y', otherwise type 'n'");
+            string wannaExit = Console.ReadLine().ToLower();
+            return wannaExit;
         }
+
+
         /// <summary>
         /// take the bet of the user and checks it with the current credit
         /// </summary>
@@ -86,6 +90,32 @@ namespace SlotMachine
             //    Console.WriteLine();
             //}
         }
+        public static string[,] RandomGrid(int width, int length)
+        {
+            Random rand = new Random();
+            string[,] grid = new string[width, length];
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < length; j++)
+                {
+                    grid[i, j] = Methods.RandomSymbol(rand);
+                }
+            }
+
+            return grid;
+            }
+        public static int CheckAllWins(string[,] grid, int centralBet, int horizontalBet, int verticalBet)
+        {
+            const int CENTRAL_MULTIPLIER = 5;
+            const int HORIZONTAL_MULTIPLIER = 2;
+            const int VERTICAL_MULTIPLIER = 1;
+            int wins = 0;
+            wins += Methods.CheckCentral(grid) * CENTRAL_MULTIPLIER * centralBet;
+            wins += Methods.CheckHorizontal(grid) * HORIZONTAL_MULTIPLIER * horizontalBet;
+            wins += Methods.CheckVerticalandDiagonal(grid) * VERTICAL_MULTIPLIER * verticalBet;
+
+            return wins;
+}
     }
 }
 
